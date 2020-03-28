@@ -8,6 +8,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Customer extends Person {
+	public Customer(String username, String email) {
+		super(username, email);
+	}
+
 	@Column(nullable = false)
 	private String telefone;
 

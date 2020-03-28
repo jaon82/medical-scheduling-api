@@ -14,6 +14,14 @@ public class Person {
 	@Column(nullable = false, unique = true)
 	private String email;
 
+	public Person() {
+	}
+
+	public Person(String username, String email) {
+		this.name = username;
+		this.email = email;
+	}
+
 	public String getName() {
 		return name;
 	}
