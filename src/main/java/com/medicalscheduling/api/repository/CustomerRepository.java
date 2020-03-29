@@ -7,5 +7,6 @@ import com.medicalscheduling.api.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-
+	Boolean existsByEmail(String email);
+	Boolean existsByCpf(String cpf);
 }

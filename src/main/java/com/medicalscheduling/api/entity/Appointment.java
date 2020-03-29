@@ -27,7 +27,7 @@ public class Appointment {
 	private Customer customer;
 
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	public long getId() {

@@ -7,4 +7,6 @@ import com.medicalscheduling.api.entity.Doctor;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
+	Boolean existsByEmail(String email);
+	Boolean existsByCrm(String crm);
 }

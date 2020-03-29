@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.medicalscheduling.api.entity.Doctor;
+import com.medicalscheduling.api.payload.response.MessageResponse;
 import com.medicalscheduling.api.repository.DoctorRepository;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -39,8 +40,14 @@ public class DoctorController {
 	}
 
 	@RequestMapping(value = "/doctor", method = RequestMethod.POST)
-	public Doctor Post(@Valid @RequestBody Doctor doctor) {
-		return _doctorRepository.save(doctor);
+	public ResponseEntity<?> Post(@Valid @RequestBody Doctor doctor) {
+		if (_doctorRepository.existsByEmail(doctor.getEmail())) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+		}
+		if (_doctorRepository.existsByCrm(doctor.getCrm())) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: CRM is already in use!"));
+		}
+		return ResponseEntity.ok(_doctorRepository.save(doctor));
 	}
 
 	@RequestMapping(value = "/doctor/{id}", method = RequestMethod.PUT)

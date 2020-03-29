@@ -7,6 +7,7 @@ import javax.management.relation.RelationNotFoundException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,6 +58,15 @@ public class AppointmentController {
 		Customer customer = customerO.get();
 		appointment.setDoctor(doctor);
 		appointment.setCustomer(customer);
+		
+		//Example<Appointment> example = Example.of(appointment);		 
+	    //Optional<Appointment> appointmentO = _appointmentRepository.findOne(example);
+
+		//Optional<Appointment> appointmentO = _appointmentRepository.findOne(appointment);
+	    //List<Person> findByEmailAddressAndLastname(EmailAddress emailAddress, String lastname);
+	    Optional<Appointment> appointmentO = _appointmentRepository.findFirstByDoctorAndCustomerAndDate(doctor, customer, appointment.getDate());
+		if (appointmentO.isPresent())
+			throw new RelationNotFoundException("Appointment already exists for this data.");
 
 		return _appointmentRepository.save(appointment);
 	}
