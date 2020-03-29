@@ -16,6 +16,7 @@ public class Doctor extends Person {
 		super(username, email);
 	}
 
+	@Column(nullable = false)
 	private String crm;
 
 	@OneToMany(mappedBy = "doctor")
